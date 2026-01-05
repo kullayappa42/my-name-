@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Attendance</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: aquamarine;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            width: 500px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: green;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .status {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h1>Employee Attendance</h1>
+
+        <label>Employee ID</label>
+        <input type="text" id="empId">
+
+        <label>Employee Name</label>
+        <input type="text" id="empName">
+
+        <button onclick="showAttendance()">Submit</button>
+
+        <div class="result" id="result">
+            <h3>Monthly Attendance Summary</h3>
+            <p><strong>Employee ID:</strong> <span id="rId"></span></p>
+            <p><strong>Employee Name:</strong> <span id="rName"></span></p>
+            <p><strong>Total Days:</strong> 30</p>
+            <p><strong>Present Days:</strong> <span id="rPresent"></span></p>
+            <p><strong>Absent Days:</strong> <span id="rAbsent"></span></p>
+            <p><strong>Attendance Percentage:</strong> <span id="rPercent"></span>%</p>
+
+            <div class="status" id="statusMsg"></div>
+        </div>
+    </div>
+
+    <script>
+        function showAttendance() {
+            const id = document.getElementById("empId").value;
+            const name = document.getElementById("empName").value;
+
+            if (id === "" || name === "") {
+                alert("Please enter Employee ID and Name");
+                return;
+            }
+
+            const totalDays = 30;
+            const presentDays = Math.floor(Math.random() * 31); // demo data
+            const absentDays = totalDays - presentDays;
+            const percentage = (presentDays / totalDays) * 100;
+
+            document.getElementById("rId").innerText = id;
+            document.getElementById("rName").innerText = name;
+            document.getElementById("rPresent").innerText = presentDays;
+            document.getElementById("rAbsent").innerText = absentDays;
+            document.getElementById("rPercent").innerText = percentage.toFixed(2);
+
+            const status = document.getElementById("statusMsg");
+
+            if (percentage < 50) {
+                status.innerText = "Poor Attendance";
+                status.style.color = "red";
+            } 
+            else if (percentage >= 51 && percentage <= 80) {
+                status.innerText = "Good Attendance";
+                status.style.color = "orange";
+            }
+            else if (percentage > 90) {
+                status.innerText = "Excellent Attendance";
+                status.style.color = "green";
+            }
+            else {
+                status.innerText = "Very Good Attendance";
+                status.style.color = "blue";
+            }
+
+            document.getElementById("result").style.display = "block";
+        }
+    </script>
+</body>
+</html>

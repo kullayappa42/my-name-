@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Tax</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: rgb(74, 227, 240);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            width: 500px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: green;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f5e9;
+            border-radius: 8px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h1>Employee Tax Calculation</h1>
+
+        <label>Employee Income (₹)</label>
+        <input type="number" id="income">
+
+        <label>PF Amount (₹)</label>
+        <input type="number" id="pf">
+
+        <button onclick="calculateTax()">Submit</button>
+
+        <div class="result" id="result">
+            <p><b>Income:</b> ₹<span id="rIncome"></span></p>
+            <p><b>PF:</b> ₹<span id="rPf"></span></p>
+            <p><b>Tax Amount:</b> ₹<span id="rTax"></span></p>
+            <p><b>Net Salary:</b> ₹<span id="rNet"></span></p>
+        </div>
+    </div>
+
+    <script>
+        function calculateTax() {
+            const income = Number(document.getElementById("income").value);
+            const pf = Number(document.getElementById("pf").value);
+
+            if (income === 0) {
+                alert("Please enter income");
+                return;
+            }
+
+            let taxRate = 0;
+
+            if (income <= 20000) {
+                taxRate = 0;
+            } else if (income <= 50000) {
+                taxRate = 0.10;
+            } else if (income <= 100000) {
+                taxRate = 0.20;
+            } else {
+                taxRate = 0.30;
+            }
+
+            const tax = income * taxRate;
+            const netSalary = income - tax - pf;
+
+            document.getElementById("rIncome").innerText = income;
+            document.getElementById("rPf").innerText = pf;
+            document.getElementById("rTax").innerText = tax.toFixed(2);
+            document.getElementById("rNet").innerText = netSalary.toFixed(2);
+
+            document.getElementById("result").style.display = "block";
+        }
+    </script>
+</body>
+</html>

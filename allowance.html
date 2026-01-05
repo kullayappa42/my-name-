@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Allowances</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: aquamarine;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            width: 500px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: green;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-radius: 8px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h1>Employee Allowances</h1>
+
+        <label>Employee ID</label>
+        <input type="text" id="empId">
+
+        <label>Employee Name</label>
+        <input type="text" id="empName">
+
+        <label>Job Role</label>
+        <select id="jobRole">
+            <option value="">Select Job Role</option>
+            <option value="manager">Manager</option>
+            <option value="developer">Developer</option>
+            <option value="tester">Tester</option>
+            <option value="intern">Intern</option>
+        </select>
+
+        <button onclick="calculateAllowances()">Submit</button>
+
+        <div class="result" id="result">
+            <h3>Allowance Details</h3>
+            <p><b>Employee ID:</b> <span id="rId"></span></p>
+            <p><b>Employee Name:</b> <span id="rName"></span></p>
+            <p><b>Job Role:</b> <span id="rRole"></span></p>
+            <p><b>Basic Salary:</b> ₹<span id="basic"></span></p>
+            <p><b>HRA (20%):</b> ₹<span id="hra"></span></p>
+            <p><b>DA (10%):</b> ₹<span id="da"></span></p>
+            <p><b>Medical Allowance:</b> ₹<span id="medical"></span></p>
+            <p><b>Total Salary:</b> ₹<span id="total"></span></p>
+        </div>
+    </div>
+
+    <script>
+        function calculateAllowances() {
+            const id = document.getElementById("empId").value;
+            const name = document.getElementById("empName").value;
+            const role = document.getElementById("jobRole").value;
+
+            if(id === "" || name === "" || role === "") {
+                alert("Please fill all details");
+                return;
+            }
+            let basic, hra, da, medical;
+
+            switch(role) {
+                case "manager":
+                    basic = 80000;
+                    hra = 16000;
+                    da = 8000;
+                    medical = 5000;
+                    break;
+                case "developer":
+                    basic = 60000;
+                    hra = 12000;
+                    da = 6000;
+                    medical = 3000;
+                    break;
+                case "tester":
+                    basic = 40000;
+                    hra = 8000;
+                    da = 4000;
+                    medical = 2000;
+                    break;
+                case "intern":
+                    basic = 20000;
+                    hra = 4000;
+                    da = 2000;
+                    medical = 1000;
+                    break;
+                default:
+                    basic = hra = da = medical = 0;
+            }
+
+            const total = basic + hra + da + medical;
+
+            document.getElementById("rId").innerText = id;
+            document.getElementById("rName").innerText = name;
+            document.getElementById("rRole").innerText = role.charAt(0).toUpperCase() + role.slice(1);
+            document.getElementById("basic").innerText = basic;
+            document.getElementById("hra").innerText = hra;
+            document.getElementById("da").innerText = da;
+            document.getElementById("medical").innerText = medical;
+            document.getElementById("total").innerText = total;
+
+            document.getElementById("result").style.display = "block";
+        }
+    </script>
+</body>
+</html>
